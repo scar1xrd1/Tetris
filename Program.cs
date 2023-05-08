@@ -1,9 +1,11 @@
 ﻿using System.Text;
 
 /*
-
-□
-
+ □□   □   □
+□□    □  □□□
+     □□
+□□   
+□□   □□□□
 */
 
 Console.OutputEncoding = Encoding.UTF8;
@@ -15,11 +17,13 @@ struct Element
 {
     public int id;
     public string value;
+    public int type;
 
-    public Element(int id, string value)
+    public Element(int id, string value, int type)
     {
         this.id = id;
         this.value = value;
+        this.type = type;
     }
 }
 
@@ -52,7 +56,7 @@ class Tetris
         {
             for(int j = 0; j < field.GetLength(1); j++)
             {
-                field[i, j] = new Element(-1, ".");
+                field[i, j] = new Element(-1, ".", -1);
             }
         }
     }
@@ -62,7 +66,39 @@ class Tetris
         if(!figureActive)
         {
             figureActive = true;
+            Random random = new Random();
+            int r = random.Next(1, 6);
 
+            if(r == 1)
+            {
+                //  ■ | ■ ■ ■ ■ 
+                //  ■ |
+                //  ■ | 
+                //  ■ |
+            }
+            else if(r == 2)
+            {
+                //   ■ | ■   |       |       | ■ ■ | ■ ■ |       |
+                //   ■ | ■   |     ■ | ■     | ■   |   ■ | ■ ■ ■ | ■ ■ ■
+                // ■ ■ | ■ ■ | ■ ■ ■ | ■ ■ ■ | ■   |   ■ | ■     |     ■
+            }
+            else if(r == 3)
+            {
+                //       |       |   ■ | ■
+                //   ■   | ■ ■ ■ | ■ ■ | ■ ■ 
+                // ■ ■ ■ |   ■   |   ■ | ■
+            }
+            else if(r == 4)
+            {
+                //       |       |   ■ | ■ 
+                //   ■ ■ | ■ ■   | ■ ■ | ■ ■
+                // ■ ■   |   ■ ■ | ■   |   ■
+            }
+            else if(r == 5)
+            {
+                // ■ ■
+                // ■ ■
+            }
         }
     }
 
@@ -75,6 +111,7 @@ class Tetris
     {
         while(!stopThreads)
         {
+            CreateFigure();
             Console.Clear();
             for (int i = 0; i < field.GetLength(0); i++)
             {
